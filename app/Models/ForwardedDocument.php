@@ -28,4 +28,22 @@ class ForwardedDocument extends Model
     {
         return $this->belongsTo(Document::class, 'document_id', 'document_id');
     }
+
+
+    public function forwardedTo()
+    {
+        return $this->belongsTo(Employee::class, 'forwarded_to');
+    }
+
+    // Relation to the Employee model (forwarded by)
+    public function forwardedBy()
+    {
+        return $this->belongsTo(Employee::class, 'forwarded_by');
+    }
+
+    // Relation to the Document model
+    public function documents()
+    {
+        return $this->belongsTo(Document::class, 'document_id');
+    }
 }

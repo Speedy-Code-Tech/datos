@@ -27,7 +27,7 @@
         <table class="email-list">
             {{-- Display Forwarded Documents --}}
             @foreach ($forwardedDocuments as $forwarded)
-            {{$forwarded->document->document_name}}
+           
                 <tr class="email-item {{ $forwarded->status !== 'seen' ? 'delivered' : '' }}"
                     data-id="{{ $forwarded->forwarded_document_id }}"
                     data-sender="{{ $forwarded->forwardedByEmployee->first_name ?? 'Unknown' }} {{ $forwarded->forwardedByEmployee->last_name ?? '' }}"

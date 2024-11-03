@@ -26,7 +26,10 @@
                         </div>
                     </div>
                     <div class="viewing-btn">
+                        @if ($document->status==NULL)
                         <button class="edit-btn" onclick="location.href='{{ route('admin.documents.edit_docs', $document->document_id) }}'">Edit</button>
+
+                        @endif
                         <button class="download-btn">
                             <a  style="color:#FEFEFF; text-decoration:none;" href="{{ route('document.serve', basename($document->file_path)) }}" download>Download</a>
                         </button>

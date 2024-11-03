@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Document;
 use App\Models\Employee;
+use App\Models\ForwardedDocument;
 use App\Models\User;
 use App\Models\Tag;
 use Illuminate\Support\Str;
@@ -86,7 +87,7 @@ class OfficeStaffController extends Controller
     public function showApprovedDocuments()
     {
         // Fetch all approved documents
-        $documents = Document::where('document_status', 'Approved')->get();
+       $documents = Document::where('document_status', 'Approved')->where('status',NULL)->get();
         return view('office_staff.documents.os_search', compact('documents'));
     }
 
@@ -111,7 +112,7 @@ class OfficeStaffController extends Controller
 
     public function showHomePage()
     {
-        $documents = Document::where('document_status', 'Approved')->get(); // or any other query
+       $documents = Document::where('document_status', 'Approved')->where('status',NULL)->get(); // or any other query
         return view('home.office_staff', compact('documents'));
     }
 
@@ -263,6 +264,18 @@ class OfficeStaffController extends Controller
         // Example: DocumentForwarding::create([...]);
 
         return response()->json(['message' => 'Document forwarded successfully!']);
+    }
+
+    
+    public function archiveDocs(){
+        $id = Employee::where('employee_id',auth()->user()->employee_id)->first()->id;
+        $forward = ForwardedDocument::with(['forwardedTo','documents', 'forwardedBy'])->where('forwarded_to',$id)->where('status','archive')->get();
+        return view('office_staff.os_archive',compact('forward'));
+    }
+    public function trash(){
+        $id = Employee::where('employee_id',auth()->user()->employee_id)->first()->id;
+        $forward = ForwardedDocument::with(['forwardedTo','documents', 'forwardedBy'])->where('forwarded_to',$id)->where('status','deleted')->get();
+        return view('office_staff.os_trash',compact('forward'));
     }
 
 }

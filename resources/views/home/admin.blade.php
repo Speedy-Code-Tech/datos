@@ -91,6 +91,7 @@
                                         <a href="{{ route('document.serve', basename($document->file_path)) }}" download>Download</a>
                                         <a href="{{ route('admin.documents.edit_docs', $document->document_id) }}">Edit</a>
                                         <a href="#" class="forward-btn" data-document-id="{{ $document->document_id }}">Forward</a>                           
+                                        <a href="{{route('admin.archive_document',$document->document_id )}}" class="forward-btns">Archive</a>                           
                                     </div>
                                 </div>
                             </div>

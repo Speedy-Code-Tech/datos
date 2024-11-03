@@ -79,6 +79,8 @@
                     <div class="icon-container" data-target="#sidebar"><i class="bi bi-search" id="search-icon"></i>
                     </div>
                 </li>
+                <li><div class="icon-container" data-target="#sidebar"><i class="bi bi-archive-fill" id="archive"></i></div></li>
+                <li><div class="icon-container" data-target="#sidebar"><i class="bi bi-trash3-fill" id="trash"></i></div></li>
             </ul>
             <div class="profile-settings">
                 <div class="icon-container" data-target="#sidebar"><i class="bi bi-door-open-fill"></i></div>
@@ -109,8 +111,7 @@
                         <li><a href="{{ route('dean.documents.cms') }}" id="cms">Claim Monitoring Sheet</a></li>
                         <li><a href="{{ route('dean.documents.audited_dv') }}" id="audit">Audited Documents</a>
                         </li>
-                        <li><a href="{{ route('viewRequest') }}"> Requested Documents</a></li>
-
+                    
                     </ul>
 
                 </li>
@@ -122,6 +123,8 @@
                         id="announcements-icon">Notifications</a></li>
 
                 <li><a href="{{ route('dean.documents.dean_search') }}" id="search">Search</a></li>
+                <li><a href="{{ route ('dean.dean_archive') }}" id="archive">Archive</a></li>
+                <li><a href="{{ route ('dean.dean_trash') }}" id="trash">Trash</a></li>
             </ul>
             <div class="profile-content">
                 <ul>

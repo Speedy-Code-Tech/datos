@@ -87,7 +87,7 @@ class NotificationController extends Controller
     public function destroysent($id,$status){
 
         $forwardedDocuments = SendDocument::where('send_id',$id)->first();
-       
+        return $forwardedDocuments;
         if($forwardedDocuments){
          $forwardedDocuments->status = $status;
          $forwardedDocuments->update();

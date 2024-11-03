@@ -95,6 +95,8 @@
                     <div class="icon-container" data-target="#sidebar"><i class="bi bi-search" id="search-icon"></i>
                     </div>
                 </li>
+                <li><div class="icon-container" data-target="#sidebar"><i class="bi bi-archive-fill" id="archive"></i></div></li>
+                <li><div class="icon-container" data-target="#sidebar"><i class="bi bi-trash3-fill" id="trash"></i></div></li>
             </ul>
             <div class="profile-settings">
                 <div class="profile-settings">
@@ -163,6 +165,13 @@
                 </li>
                 <li><a href="{{ route('admin.admin_upload_document') }}" id="upload">Upload</a></li>
                 <li><a href="{{ route('admin.admin_search') }}" id="search">Search</a></li>
+                <li><a href="#" class="archives-dropdown-toggle" id="announcements-icon">Archive <i class="bi bi-chevron-right"></i></a>
+                    <ul class="archives-dropdown-menu">
+                        <li><a href="{{ route ('admin.archive_notif') }}" id="notification_archived"> Notification</a></li>
+                        <li><a href="{{ route ('admin.archive_docs') }}" id="notification_archived"> Document</a></li>
+                    </ul>
+                </li>
+                <li><a href="{{ route ('admin.trash') }}" id="trash">Trash</a></li>
             </ul>
             <div class="profile-content">
                 <ul>

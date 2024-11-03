@@ -4,9 +4,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const dropdownToggle = document.querySelector(".dropdown-toggle");
     const dropdownToggle1 = document.querySelector(".emp-dropdown-toggle");
     const dropdownToggle2 = document.querySelector(".pending-dropdown-toggle");
+    const dropdownToggle3 = document.querySelector(".archives-dropdown-toggle");
     const dropdownMenu = document.querySelector(".more-dropdown-menu");
     const dropdownMenuEmp = document.querySelector(".emp-dropdown-menu");
     const dropdownMenuPending = document.querySelector(".pending-dropdown");
+    const archivesMenuPending = document.querySelector(".archives-dropdown-menu");
+    
     const closeIcon = document.querySelector(".bi-text-right");
 
     // Dropdown toggle behavior
@@ -24,6 +27,10 @@ document.addEventListener("DOMContentLoaded", function () {
         dropdownMenuPending.classList.toggle("pending-dropdown-active");
         this.querySelector("i.bi-chevron-right").classList.toggle("pending-dropdown-active");
     });
+    dropdownToggle3.addEventListener("click", function () {
+        archivesMenuPending.classList.toggle("archives-dropdown-active");
+        this.querySelector("i.bi-chevron-right").classList.toggle("archives-dropdown-active");
+    });
 
     // Close dropdown menu when the cursor leaves
     dropdownMenu.addEventListener("mouseleave", function () {
@@ -39,6 +46,11 @@ document.addEventListener("DOMContentLoaded", function () {
     dropdownMenuPending.addEventListener("mouseleave", function () {
         dropdownMenuPending.classList.remove("pending-dropdown-active");
         dropdownToggle2.querySelector("i.bi-chevron-right").classList.remove("pending-dropdown-active");
+    });
+
+    archivesMenuPending.addEventListener("mouseleave", function () {
+        archivesMenuPending.classList.remove("archives-dropdown-active");
+        dropdownToggle3.querySelector("i.bi-chevron-right").classList.remove("archives-dropdown-active");
     });
 
     // Close the extra sidebar when the close icon is clicked
@@ -59,6 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
             dropdownToggle1.querySelector("i.bi-chevron-right").classList.remove("emp-dropdown-active");
             dropdownMenuPending.classList.remove("pending-dropdown-active");
             dropdownToggle2.querySelector("i.bi-chevron-right").classList.remove("pending-dropdown-active");
+            archivesMenuPending.querySelector("i.bi-chevron-right").classList.remove("archives-dropdown-active");
 
             iconContainers.forEach((icon) => icon.classList.remove("active"));
             this.classList.add("active");

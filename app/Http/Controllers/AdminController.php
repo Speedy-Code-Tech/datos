@@ -203,7 +203,7 @@ class AdminController extends Controller
     public function adminHome()
     {
         // Fetch the documents from the database
-        $documents = Document::where('document_status', 'Approved')->get();
+        $documents = Document::where('document_status', 'Approved')->where('status',NULL)->get();
 
         // Pass the documents to the view
         return view('home.admin', compact('documents'));
@@ -392,5 +392,40 @@ class AdminController extends Controller
 
         return response()->json(['message' => 'Document forwarded successfully!']);
     }
-
+    
+    public function archiveNotif(){
+        $id = Employee::where('employee_id',auth()->user()->employee_id)->first()->id;
+        $forward = ForwardedDocument::with(['forwardedTo','documents', 'forwardedBy'])->where('forwarded_to',$id)->where('status','archive')->get();
+        return view('admin.archive_notif',compact('forward'));
+    }
+    public function archiveDocs(){
+        $id = Employee::where('employee_id',auth()->user()->employee_id)->first();
+       
+        $forward = Document::with(['user','tags'])->where('status','archive')->orderBy('updated_at','ASC')->get();
+        
+        return view('admin.archive_docs',compact('forward'));
+    }
+    public function archiveDocument($id){
+        $docs = Document::where('document_id',$id)->first();
+        if($docs){
+            $docs->status="archive";
+            $docs->updated_at = now();
+             $docs->update();
+            return redirect()->route('home.admin');
+        }
+    }
+    public function trash(){
+        $id = Employee::where('employee_id',auth()->user()->employee_id)->first()->id;
+        $forward = ForwardedDocument::with(['forwardedTo','documents', 'forwardedBy'])->where('forwarded_to',$id)->where('status','deleted')->get();
+        return view('admin.trash',compact('forward'));
+    }
+    public function restoreDocs($id){
+        $docs = Document::where('document_id',$id)->first();
+        if($docs){
+            $docs->status = NULL;
+            $docs->updated_at = now();
+            $docs->update();
+            return redirect()->back();
+        }
+    }
 }

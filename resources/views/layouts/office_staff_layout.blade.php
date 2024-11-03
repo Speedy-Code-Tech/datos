@@ -55,14 +55,16 @@
                 <li>
                     <div class="icon-container" data-target="#notifications">
                         <i class="bi bi-bell-fill" id="notification-icon"></i>
-                        {{-- @if(isset($notificationCount) && $notificationCount > 0) --}}
-                            <span class="badge badge-pill badge-danger" id="notification-counts" style="display:none;"></span>
-                        {{-- @endif --}}
+                        @if(isset($notificationCount) && $notificationCount > 0)
+                        <span class="badge badge-pill badge-danger" id="notification-count" style="display:none;">{{ $notificationCount }}</span>
+                        @endif
                     </div>
                 </li>
 
                 <li><div class="icon-container" data-target="#home"><i class="bi bi-cloud-arrow-up-fill"></i></div></li>
                 <li><div class="icon-container" data-target="#home"><i class="bi bi-search"></i></div></li>
+                <li><div class="icon-container" data-target="#sidebar"><i class="bi bi-archive-fill" id="archive"></i></div></li>
+                <li><div class="icon-container" data-target="#sidebar"><i class="bi bi-trash3-fill" id="trash"></i></div></li>
             </ul>
             <div class="profile-settings">
                 <div class="profile-settings">
@@ -100,6 +102,8 @@
                 <li><a href="{{ route ('office_staff.os_notification') }}" id="announcements-icon">Notifications</a></li>
                 <li><a href="{{ route ('office_staff.os_upload_document') }}" id="upload">Upload</a></li>
                 <li><a href="{{ route('office_staff.documents.os_search') }}" id="search">Search</a></li>
+                <li><a href="{{ route ('office_staff.os_archive') }}" id="archive">Archive</a></li>
+                <li><a href="{{ route ('office_staff.os_trash') }}" id="trash">Trash</a></li>
                 
             </ul>
             <div class="profile-content">

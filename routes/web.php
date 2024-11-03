@@ -5,8 +5,8 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\Auth\AuthLoginController;
 use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\EmailVerificationController;
-use App\Http\Controllers\HomeController; 
-use App\Http\Controllers\OfficeStaffController; 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OfficeStaffController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DeanController;
 use App\Http\Controllers\ProfileController;
@@ -16,6 +16,7 @@ use App\Http\Controllers\SentDocumentController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TrashController;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 use App\Models\User;
@@ -234,7 +235,7 @@ Route::post('/documents/forward', [DocumentController::class, 'forwardDocument']
 
 //Route for Sent/Forwarded Documents
 Route::middleware(['auth'])->group(function () {
-    
+
     // Route for sent and forwarded documents for admins
     Route::get('/admin/documents/sent_docs', [SentDocumentController::class, 'index'])
         ->name('admin.documents.sent_docs')
@@ -244,7 +245,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/office_staff/documents/sent_docs', [SentDocumentController::class, 'index'])
         ->name('office_staff.documents.sent_docs')
         ->defaults('viewName', 'office_staff.documents.sent_docs');
-    
 });
 
 //Route for Notification  
@@ -273,7 +273,7 @@ Route::get('/documents/view/{id}', [DocumentController::class, 'show'])->name('d
 
 Route::get('/notification/count', [NotificationController::class, 'getNotificationCount'])->name('notification.count');
 
-Route::post('/dean_request',[RequestController::class,'index'])->name('dean.request');
+Route::post('/dean_request', [RequestController::class, 'index'])->name('dean.request');
 
 // Route for logout
 Route::get('/logout', [AuthLoginController::class, 'logout'])->name('logout');
@@ -289,17 +289,29 @@ Route::get('/test-db', function () {
 });
 
 
-Route::get('/verification', function(Request $req){
-    
-       
+Route::get('/verification', function (Request $req) {
+
+
     $userID = $req->query('userID');
-    $user = User::where('employee_id',$userID)->first();
-        $user->sendEmailVerificationNotification();
-    return response()->json(['success'=>true,'id'=>$userID]);
-    
+    $user = User::where('employee_id', $userID)->first();
+    $user->sendEmailVerificationNotification();
+    return response()->json(['success' => true, 'id' => $userID]);
 })->name('verification.notices');
 
-Route::post('/sent/upload',[SentDocumentController::class,'sentUpload'])->name('admin.admin_send_document');
-    Route::get('/deleteNotif/{id}/{status}',[NotificationController::class,'destroy'])->name('deleteNotif');
-    Route::get('/deleteNotifsent/{id}/{status}',[NotificationController::class,'destroysent'])->name('deleteNotifsent');
-    Route::get('/admin/viewRequested',[DocumentController::class,'viewRequest'])->name('viewRequest');
+Route::post('/sent/upload', [SentDocumentController::class, 'sentUpload'])->name('admin.admin_send_document');
+Route::get('/deleteNotif/{id}/{status}', [NotificationController::class, 'destroy'])->name('deleteNotif');
+Route::get('/deleteNotifsent/{id}/{status}', [NotificationController::class, 'destroysent'])->name('deleteNotifsent');
+Route::get('/admin/viewRequested', [DocumentController::class, 'viewRequest'])->name('viewRequest');
+
+Route::get('/admin/archive_document/{id}', [AdminController::class, 'archiveDocument'])->name('admin.archive_document');
+Route::get('/admin/archive_notif', [AdminController::class, 'archiveNotif'])->name('admin.archive_notif');
+Route::get('/admin/archive_docs', [AdminController::class, 'archiveDocs'])->name('admin.archive_docs');
+Route::get('/admin/trash', [AdminController::class, 'trash'])->name('admin.trash');
+
+Route::get('/office_staff/os_archive', [OfficeStaffController::class, 'archiveDocs'])->name('office_staff.os_archive');
+Route::get('/office_staff/os_trash', [OfficeStaffController::class, 'trash'])->name('office_staff.os_trash');
+Route::get('/dean/dean_archive', [DeanController::class, 'archiveDocs'])->name('dean.dean_archive');
+Route::get('/dean/dean_trash', [DeanController::class, 'trash'])->name('dean.dean_trash');
+
+Route::get('/trash/{id}', [TrashController::class, 'deleteNotifForever'])->name('deleteNotifForever');
+Route::get('/restore/{id}',[AdminController::class,'restoreDocs'])->name('restoreDocs');

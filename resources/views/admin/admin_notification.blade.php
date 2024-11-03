@@ -38,9 +38,9 @@
                         <td >Forwarded Document</td>
                         <td class="date">{{ \Carbon\Carbon::parse($forwarded->forwarded_date)->format('M d') }}</td>
                         <td class="email-actions">
-                            <a href="{{ route('deleteNotifsent', ['id' => $forwarded->forwarded_document_id, 'status' => 'archive']) }}"
+                            <a href="{{ route('deleteNotif', ['id' => $forwarded->forwarded_document_id, 'status' => 'archive']) }}"
                                 style="text-decoration: none; color:black;"><i class="bi bi-archive"></i></a>
-                            <a href="{{ route('deleteNotifsent', ['id' => $forwarded->forwarded_document_id, 'status' => 'deleted']) }}"
+                            <a href="{{ route('deleteNotif', ['id' => $forwarded->forwarded_document_id, 'status' => 'deleted']) }}"
                                 style="text-decoration: none; color:black;"><i class="bi bi-trash"></i></a>
                         </td>
                     </tr>
