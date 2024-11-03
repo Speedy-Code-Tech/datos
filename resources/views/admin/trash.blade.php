@@ -1,4 +1,4 @@
-@extends('layouts.office_staff_layout')
+@extends('layouts.admin_layout')
 
 @section('title', 'Deleted Documents')
 

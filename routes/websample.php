@@ -1,29 +1,6 @@
 <?php
-
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\Auth\AuthLoginController;
-use App\Http\Controllers\VerificationController;
-use App\Http\Controllers\EmailVerificationController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\OfficeStaffController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\DeanController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\CollegeController;
-use App\Http\Controllers\DocumentController;
-use App\Http\Controllers\SentDocumentController;
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\RequestController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\TrashController;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Response;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-
 //LOGIN
+
 Route::redirect('/', 'login');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 Route::get('/login', [AuthLoginController::class, 'showLoginForm'])->name('login');
@@ -224,6 +201,4 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/restore/{id}', [AdminController::class, 'restoreDocs'])->name('restoreDocs');
     Route::get('/employees/exclude-current', [AdminController::class, 'getEmployee']);
     Route::get('/employees/exclude-current', [OfficeStaffController::class, 'getEmployee']);
-
 });
-

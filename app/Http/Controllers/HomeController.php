@@ -13,14 +13,15 @@ class HomeController extends Controller
     {
         // Get the authenticated user
         $user = Auth::user();
-        
+
         if ($user) {
             // Fetch the employee record based on the user's employee_id
             $employee = Employee::where('employee_id', $user->employee_id)->first();
             $documents = Document::where('document_status', 'Approved')->whereNotIn('status',['archive','delete'])->get();
+
             if ($employee) {
                 $position = $employee->position;
-
+                
                 if ($position == 'Admin') {
                     return view('home.admin',compact('documents'));
                 } elseif ($position == 'Office_staff') {

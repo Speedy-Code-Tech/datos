@@ -145,5 +145,4 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(ForwardedDocument::class, 'forwarded_to', 'user_id'); // Adjust 'user_id' based on your User table
     }
-
 }
